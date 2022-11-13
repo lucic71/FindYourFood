@@ -6,9 +6,7 @@ import ReactDOM from "react-dom";
 function Section1(){
   return (
     <div className='new-container'>
-      <video src='/videos/video.mp4' autoPlay loop muted />
-
-      <h1 className="website-name">RecipeBowl</h1>
+      <h1 className="website-name">FindYourRecipe</h1>
       <h1 className="tagline">Your Ingredients</h1>
       <h1 className="tagline">Our Recipes!</h1>
 
