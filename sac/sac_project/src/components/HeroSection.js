@@ -231,43 +231,18 @@ function HeroSection()
      return (
           <div>
                <div className='hero-container'>
-                    <video src='/videos/video.mp4' autoPlay loop muted />
-
                     <h1>Your Ingredients</h1>
                     <h1>Our Recipes!</h1>
 
-                    <p>How do you want to search?</p>
+                    <p>What ingredients do you have available today?</p>
 
                     <div className='hero-btns'>
-                         <Button
-                         className='btns'
-                         buttonStyle='btn--outline'
-                         buttonSize='btn--large'
-                         onClick={() => updateState(1)}
-                         isSelected={btn1}
-                         >
-                         BY INGREDIENTS
-                         </Button>
-
-                         <Button
-                         className='btns'
-                         buttonStyle='btn--outline'
-                         buttonSize='btn--large'
-                         onClick={() => updateState(2)}
-                         isSelected={btn2}
-                         >
-                         BY IMAGE
-                         </Button>
-
-                         <Button
-                         className='btns'
-                         buttonStyle='btn--outline'
-                         buttonSize='btn--large'
-                         onClick={() => updateState(3)}
-                         isSelected={btn3}
-                         >
-                         BY CUISINE
-                         </Button>
+                    <div>
+                         <form action="javascript:void(0);" onSubmit={handleSubmit} method="POST">
+                                <input className="hero-input" type="text" name="ingredients" placeholder="Ingredients..." />
+                                <button className="hero-button" type="submit"> Submit </button>
+                         </form>
+                    </div>
                     </div>
 
                     <div>{onClickSearchbox()}</div>
