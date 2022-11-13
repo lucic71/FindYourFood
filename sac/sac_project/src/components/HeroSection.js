@@ -300,9 +300,6 @@ function HeroSection()
                     <Features/>
                 </div>
 
-                <div>
-        			<Testimonials />
-        		</div>
 
           </div>
      );

@@ -40,7 +40,7 @@ function Navbar()
 				      	</div>
 					</a>
 
-					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>RecipeBowl</Link>
+					<Link to="/" className="navbar-logo" onClick={closeMobileMenu}>FindYourRecipe</Link>
 
 					<div className='menu-icon' onClick={handleClick}>
 						<i className={click ? 'fas fa-times' : 'fas fa-bars'} />
