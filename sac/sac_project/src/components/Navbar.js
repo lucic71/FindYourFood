@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './Button';
 import './Navbar.css';
-import logo1 from './logo1.png';
+import logo1 from './findyourrecipe-logo.png';
 
 function Navbar()
 {
