@@ -13,8 +13,8 @@ import os
 import pickle
 import random
 from args import get_parser
-from model import get_model
-from torchvision import transforms
+#from model import get_model
+#from torchvision import transforms
 from utils.output_utils import prepare_output
 from PIL import Image
 from sys import platform
@@ -24,9 +24,6 @@ from sys import platform
 def load_dataset(silent=False):
     # List of dataset files we want to merge.
     dataset_file_names = [
-        'recipes_raw_nosource_ar.json',
-        'recipes_raw_nosource_epi.json',
-        'recipes_raw_nosource_fn.json',
     ]
 
     dataset = []
@@ -136,10 +133,10 @@ def build_model(vocab_size, embedding_dim, rnn_units, batch_size):
 simplified_batch_size = 1
 filepath_of_trained_model = "Model\Model.h5"
 VOCABULARY_SIZE = 176
-model_simplified = build_model(VOCABULARY_SIZE, 256, 1024, simplified_batch_size)
-model_simplified.load_weights(filepath_of_trained_model)
-model_simplified.build(tf.TensorShape([simplified_batch_size, None]))
-model_simplified.summary()
+###model_simplified = build_model(VOCABULARY_SIZE, 256, 1024, simplified_batch_size)
+###model_simplified.load_weights(filepath_of_trained_model)
+###model_simplified.build(tf.TensorShape([simplified_batch_size, None]))
+###model_simplified.summary()
 tokenizer = tf.keras.preprocessing.text.Tokenizer(
     char_level=True,
     filters='',
@@ -202,123 +199,125 @@ print("Server Started!!")
 image_select = True
 
 def generate_combinations(model, ingredients_list):
-    image_urls = ['https://i.ndtvimg.com/i/2017-06/spicy-dishes_620x350_41498029900.jpg',
-                'https://cookthestory.com/wp-content/uploads/2019/12/Italian-Chicken-Breast-1392x780-4095.jpg',
-                'https://i.pinimg.com/originals/d8/b7/fe/d8b7fef1785f83140567d8d5febf2e56.jpg',
-                'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872',
-                'https://www.swantour.com/blogs/wp-content/uploads/2019/04/Famous-Food-of-Shimla.jpg',
-                'https://i.ndtvimg.com/i/2016-04/bell-pepper-cover_625x350_71460619334.jpg',
-                'https://www.archanaskitchen.com/images/archanaskitchen/Indian_Vegetables_Gravy/Kadai_Baby_Corn_Capsicum_Masala_Recipe-6.jpg',
-                'https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                'https://images2.alphacoders.com/100/1003810.jpg',
-                'https://www.itl.cat/pngfile/big/290-2906144_food-wallpaper-hd-restaurants-food-images-hd.jpg',
-                'https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                'https://thumbs.dreamstime.com/b/indian-food-thali-style-meal-chicken-meat-masala-tea-chai-wooden-table-138439693.jpg']
-    recipe_length = 4000
-    try_letters = ingredients_list
-    try_temperature = [0.2, 0.9]
+###    image_urls = ['https://i.ndtvimg.com/i/2017-06/spicy-dishes_620x350_41498029900.jpg',
+###                'https://cookthestory.com/wp-content/uploads/2019/12/Italian-Chicken-Breast-1392x780-4095.jpg',
+###                'https://i.pinimg.com/originals/d8/b7/fe/d8b7fef1785f83140567d8d5febf2e56.jpg',
+###                'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=960,872',
+###                'https://www.swantour.com/blogs/wp-content/uploads/2019/04/Famous-Food-of-Shimla.jpg',
+###                'https://i.ndtvimg.com/i/2016-04/bell-pepper-cover_625x350_71460619334.jpg',
+###                'https://www.archanaskitchen.com/images/archanaskitchen/Indian_Vegetables_Gravy/Kadai_Baby_Corn_Capsicum_Masala_Recipe-6.jpg',
+###                'https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+###                'https://images2.alphacoders.com/100/1003810.jpg',
+###                'https://www.itl.cat/pngfile/big/290-2906144_food-wallpaper-hd-restaurants-food-images-hd.jpg',
+###                'https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+###                'https://thumbs.dreamstime.com/b/indian-food-thali-style-meal-chicken-meat-masala-tea-chai-wooden-table-138439693.jpg']
+###    recipe_length = 4000
+###    try_letters = ingredients_list
+###    try_temperature = [0.2, 0.9]
+###
+###    print("Inside function")
+###
+###    ans = dict()
+###    ans[0] = []
+###
+###    global image_select
+###
+###    for letter in try_letters:
+###
+###        if image_select == True:
+###            idx = 0
+###        else:
+###            idx = 11
+###
+###        for temperature in try_temperature:
+###            generated_text = generate_text(
+###                model,
+###                start_string=letter,
+###                num_generate = recipe_length,
+###                temperature=temperature
+###            )
+###
+###            title = ""
+###            ingredients = ""
+###            recipe = ""
+###
+###            i = 0
+###            while i<len(generated_text) and (generated_text[i])  != "\n":
+###                title += generated_text[i]
+###                i += 1
+###            title.strip()
+###            # if len(title)<10:
+###            # print("title Length:" +  str(len(title)))
+###
+###            while i<len(generated_text) and generated_text[i] != "•":
+###                i += 1
+###            if i == len(generated_text):
+###                continue
+###
+###            while i+1<len(generated_text) and (generated_text[i] + generated_text[i+1]) != "\n\n":
+###                ingredients += generated_text[i]
+###                i += 1
+###            i += 4
+###            ingredients.strip()
+###            # if len(ingredients)<10:
+###            # print("Ingredients Length:" + str(len(ingredients)))
+###
+###            while i<len(generated_text) and generated_text[i] != "▪":
+###                i += 1
+###            if i == len(generated_text):
+###                continue
+###
+###            while i<len(generated_text) and (generated_text[i])!= "␣":
+###                recipe += generated_text[i]
+###                i += 1
+###            recipe.strip()
+###            # if len(recipe)<10:
+###            # print("recipe Length:" + str(len(recipe)))
+###
+###            # Ingredients Duplicate Removal
+###            oringinal_ingredients = ingredients_list[0].split()
+###            oringinal_ingredients = [("• " + ingredient + "\n") for ingredient in oringinal_ingredients]
+###            ingredients = ingredients.split('\n')
+###            ingredients.extend(oringinal_ingredients)
+###            ingredients = list(set(ingredients))
+###            ingredients = '\n'.join([ingredient for ingredient in ingredients])
+###
+###            # Printing Stuff
+###            # ans['author'] = title[2:]
+###            # ans['title'] = ingredients
+###            # ans['content'] = recipe
+###            # ans['date_posted'] = 'April 20, 2018'
+###            # break
+###            ans[0].append({'author':title[2:], 'title': ingredients,'content': recipe, 'date_posted': image_urls[idx], 'isFavorite':"false", 'classname':"heart"})
+###
+###            if image_select == True:
+###                idx += 1
+###            else:
+###                idx -= 1
+###
+###
+###            # print(f'Attempt: "{letter}" + {temperature}')
+###            # print('-----------------------------------')
+###            # print()
+###            # print('\n\n')
+###            # print(ingredients)
+###            # print('\n\n')
+###            # print(recipe)
+###            # print('\n\n')
+###            # print(generated_text)
+###            # print('\n\n')
+###            #
+###            # # Breaking whenever we get a single proper output
+###            # break
+###    print(ans)
+###    if image_select:
+###        image_select = False
+###    else:
+###        image_select = True
+###
+###    return ans
+    return dict()
 
-    print("Inside function")
-
-    ans = dict()
-    ans[0] = []
-
-    global image_select
-
-    for letter in try_letters:
-
-        if image_select == True:
-            idx = 0
-        else:
-            idx = 11
-
-        for temperature in try_temperature:
-            generated_text = generate_text(
-                model,
-                start_string=letter,
-                num_generate = recipe_length,
-                temperature=temperature
-            )
-
-            title = ""
-            ingredients = ""
-            recipe = ""
-
-            i = 0
-            while i<len(generated_text) and (generated_text[i])  != "\n":
-                title += generated_text[i]
-                i += 1
-            title.strip()
-            # if len(title)<10:
-            # print("title Length:" +  str(len(title)))
-
-            while i<len(generated_text) and generated_text[i] != "•":
-                i += 1
-            if i == len(generated_text):
-                continue
-
-            while i+1<len(generated_text) and (generated_text[i] + generated_text[i+1]) != "\n\n":
-                ingredients += generated_text[i]
-                i += 1
-            i += 4
-            ingredients.strip()
-            # if len(ingredients)<10:
-            # print("Ingredients Length:" + str(len(ingredients)))
-
-            while i<len(generated_text) and generated_text[i] != "▪":
-                i += 1
-            if i == len(generated_text):
-                continue
-
-            while i<len(generated_text) and (generated_text[i])!= "␣":
-                recipe += generated_text[i]
-                i += 1
-            recipe.strip()
-            # if len(recipe)<10:
-            # print("recipe Length:" + str(len(recipe)))
-
-            # Ingredients Duplicate Removal
-            oringinal_ingredients = ingredients_list[0].split()
-            oringinal_ingredients = [("• " + ingredient + "\n") for ingredient in oringinal_ingredients]
-            ingredients = ingredients.split('\n')
-            ingredients.extend(oringinal_ingredients)
-            ingredients = list(set(ingredients))
-            ingredients = '\n'.join([ingredient for ingredient in ingredients])
-
-            # Printing Stuff
-            # ans['author'] = title[2:]
-            # ans['title'] = ingredients
-            # ans['content'] = recipe
-            # ans['date_posted'] = 'April 20, 2018'
-            # break
-            ans[0].append({'author':title[2:], 'title': ingredients,'content': recipe, 'date_posted': image_urls[idx], 'isFavorite':"false", 'classname':"heart"})
-
-            if image_select == True:
-                idx += 1
-            else:
-                idx -= 1
-
-
-            # print(f'Attempt: "{letter}" + {temperature}')
-            # print('-----------------------------------')
-            # print()
-            # print('\n\n')
-            # print(ingredients)
-            # print('\n\n')
-            # print(recipe)
-            # print('\n\n')
-            # print(generated_text)
-            # print('\n\n')
-            #
-            # # Breaking whenever we get a single proper output
-            # break
-    print(ans)
-    if image_select:
-        image_select = False
-    else:
-        image_select = True
-
-    return ans
 
 # conn = sqlite3.connect('login.db')
 # cursor = conn.cursor()
@@ -423,235 +422,6 @@ def home():
     return ans
 
 imageCount = 1
-
-## Image-to-Recipe
-@app.route('/image', methods=['POST'])
-def fileUpload():
-
-    print("Inside fb function")
-
-    data_dir = './data'
-
-    # code will run in gpu if available and if the flag is set to True, else it will run on cpu
-    use_gpu = False
-    device = torch.device('cuda' if torch.cuda.is_available() and use_gpu else 'cpu')
-    map_loc = None if torch.cuda.is_available() and use_gpu else 'cpu'
-
-    # code below was used to save vocab files so that they can be loaded without Vocabulary class
-    #ingrs_vocab = pickle.load(open(os.path.join(data_dir, 'final_recipe1m_vocab_ingrs.pkl'), 'rb'))
-    #ingrs_vocab = [min(w, key=len) if not isinstance(w, str) else w for w in ingrs_vocab.idx2word.values()]
-    #vocab = pickle.load(open(os.path.join(data_dir, 'final_recipe1m_vocab_toks.pkl'), 'rb')).idx2word
-    #pickle.dump(ingrs_vocab, open('../demo/ingr_vocab.pkl', 'wb'))
-    #pickle.dump(vocab, open('../demo/instr_vocab.pkl', 'wb'))
-
-    ingrs_vocab = pickle.load(open(os.path.join(data_dir, 'ingr_vocab.pkl'), 'rb'))
-    vocab = pickle.load(open(os.path.join(data_dir, 'instr_vocab.pkl'), 'rb'))
-
-    ingr_vocab_size = len(ingrs_vocab)
-    instrs_vocab_size = len(vocab)
-    output_dim = instrs_vocab_size
-
-    t = time.time()
-    import sys; sys.argv=['']; del sys
-    args = get_parser()
-    args.maxseqlen = 15
-    args.ingrs_only=False
-    model = get_model(args, ingr_vocab_size, instrs_vocab_size)
-    # Load the trained model parameters
-    model_path = os.path.join(data_dir, 'modelbest.ckpt')
-    model.load_state_dict(torch.load(model_path, map_location=map_loc))
-    model.to(device)
-    model.eval()
-    model.ingrs_only = False
-    model.recipe_only = False
-    print ('loaded model')
-    print ("Elapsed time:", time.time() -t)
-
-    transf_list_batch = []
-    transf_list_batch.append(transforms.ToTensor())
-    transf_list_batch.append(transforms.Normalize((0.485, 0.456, 0.406),
-                                                  (0.229, 0.224, 0.225)))
-    to_input_transf = transforms.Compose(transf_list_batch)
-
-    greedy = [True, False, False, False]
-    beam = [-1, -1, -1, -1]
-    temperature = 1.0
-    numgens = len(greedy)
-
-    import requests
-    from io import BytesIO
-    import random
-    from collections import Counter
-    #use_urls = False # set to true to load images from demo_urls instead of those in test_imgs folder
-    show_anyways = False #if True, it will show the recipe even if it's not valid
-    #image_folder = os.path.join(data_dir, 'demo_imgs')
-
-    #if not use_urls:
-    #    demo_imgs = os.listdir(image_folder)
-    #    random.shuffle(demo_imgs)
-
-    #demo_urls = ['https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/12/9/0/FNK_Cheesecake_s4x3.jpg.rend.hgtvcom.826.620.suffix/1387411272847.jpeg',
-    #            'https://www.196flavors.com/wp-content/uploads/2014/10/california-roll-3-FP.jpg']
-
-    #demo_files = demo_urls if use_urls else demo_imgs
-
-    import warnings
-    warnings.filterwarnings("ignore")
-    # for img_file in demo_files:
-
-    #     if use_urls:
-    #         response = requests.get(img_file)
-    #         image = Image.open(BytesIO(response.content))
-    #     else:
-    #         image_path = os.path.join(image_folder, img_file)
-    #         image = Image.open(image_path).convert('RGB')
-
-    file = request.files['file']
-    image = Image.open(file).convert('RGB')
-
-    # image.save(os.getcwd() + "\\" + "../src/components/image.jpg")
-
-    transf_list = []
-    transf_list.append(transforms.Resize(256))
-    transf_list.append(transforms.CenterCrop(224))
-    transform = transforms.Compose(transf_list)
-
-    image_transf = transform(image)
-    image_tensor = to_input_transf(image_transf).unsqueeze(0).to(device)
-
-
-    ans_list = []
-
-    num_valid = 1
-    for i in range(numgens):
-        with torch.no_grad():
-            outputs = model.sample(image_tensor, greedy=greedy[i],
-                                   temperature=temperature, beam=beam[i], true_ingrs=None)
-
-        recp = dict()
-
-        ingr_ids = outputs['ingr_ids'].cpu().numpy()
-        recipe_ids = outputs['recipe_ids'].cpu().numpy()
-
-        outs, valid = prepare_output(recipe_ids[0], ingr_ids[0], ingrs_vocab, vocab)
-
-        if valid['is_valid'] or show_anyways:
-
-            print ('RECIPE', num_valid)
-            num_valid+=1
-            #print ("greedy:", greedy[i], "beam:", beam[i])
-
-            BOLD = '\033[1m'
-            END = '\033[0m'
-
-            print (BOLD + '\nTitle:' + END,outs['title'])
-            recp['author'] = outs['title']
-
-            print (BOLD + '\nIngredients:'+ END)
-            print (', '.join(outs['ingrs']))
-            recp['title'] = ', '.join(outs['ingrs'])
-
-            print (BOLD + '\nInstructions:'+END)
-            print ('-'+'\n-'.join(outs['recipe']))
-            recp['content'] = '-'+'\n-'.join(outs['recipe'])
-
-            recp["date_posted"] = "image.jpg"
-
-            recp['isFavorite'] = "false"
-            recp['classname'] = "heart"
-            print ('='*20)
-
-            ans_list.append(recp)
-
-        else:
-            pass
-            print ("Not a valid recipe!")
-            print ("Reason: ", valid['reason'])
-
-    ans = dict()
-    # ans[0] = ans_list
-    ans[0] = ans_list
-    #return ans
-    return ans
-
-## Cuisine-to-Recipe
-@app.route('/cuisine', methods=['POST'])
-def cuisine():
-
-    # Random recipes
-    def Rand(start, end, num):
-        res = []
-
-        while len(res)<10:
-            n = random.randint(start, end)
-            if n not in res:
-                res.append(n)
-
-        return res
-
-    def rectify(s):
-        s = s[1:-1]
-        li = s.split("',")
-
-        for i in range(len(li)):
-            li[i] = li[i].strip()
-            li[i] = li[i].replace("'","")
-            li[i] = li[i].replace("\\u2009", " ")
-
-            li[i] = "- " + li[i] + " \n"
-
-        s = "".join(li)
-
-        return s
-
-
-    # Provide cuisine here
-    cuisine = request.json
-    cuisine = cuisine.strip().lower()
-
-    # Path to DB
-    dirname = os.path.dirname(__file__)
-    path = "Cuisines/" + cuisine + ".db"
-    filename = os.path.join(dirname, path)
-
-    # Connecting to DB
-    conn = sqlite3.connect(filename)
-    print("Opened database successfully")
-    cursor = conn.cursor()
-
-    count_query = ("SELECT count(*) from Recipes")
-    cursor.execute(count_query)
-
-    count = cursor.fetchall()[0][0]
-
-    # RAndom 10 recipes
-    num = 10
-    start = 1
-    end = int(count)
-    recipe_nums = Rand(start, end, num)
-
-    ans = dict()
-    ans[0] = []
-
-    for recipe in recipe_nums:
-        find_recipe = ("SELECT * from Recipes WHERE Id=?")
-        cursor.execute(find_recipe,[(recipe)])
-
-        result = cursor.fetchall()
-
-        title = result[0][1]
-        ingredients = rectify(result[0][2])
-        instructions = rectify(result[0][3])
-        img_link = result[0][4]
-
-        temp = {'author':title, 'title': ingredients,'content': instructions, 'date_posted': img_link, 'isFavorite':'false', 'classname':'heart'}
-
-        ans[0].append(temp)
-
-    conn.close()
-    print("Successful")
-
-    return ans
 
 ## User Login
 @app.route('/login', methods = ["POST"])
