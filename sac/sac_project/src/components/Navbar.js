@@ -53,19 +53,8 @@ function Navbar()
 							</Link>
 						</li>
 
-						{localStorage.getItem("loggedIn")==="true" ?
-							<li className='nav-item'>
-								<Link to='/feed' className='nav-links' onClick={closeMobileMenu}>
-									Feed
-								</Link>
-							</li> :
-
-							<li className='nav-item'>
-								<Link to='/sign_up' className='nav-links' onClick={closeMobileMenu}>
-									Feed
-								</Link>
-							</li>
-						}
+						<li className='nav-item'>
+						</li>
 
 						<li className='nav-item'>
 							<Link to='/about' className='nav-links' onClick={closeMobileMenu}>
