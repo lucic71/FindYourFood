@@ -292,10 +292,6 @@ function Profile() {
               null }
             <h2 className="header2">{username}</h2>
             <p className="header-content2">{email}</p>
-            <div className="city2 header-content2">
-              <i className="city2 header-content2 fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
-              Chandigarh, India
-            </div>
             <div className="button-css2">
               {<>{passwordFunction()}</>}
             </div>
@@ -313,29 +309,15 @@ function Profile() {
           {<>{fetchPostsCall()}</>}
         </div>
 
-        {selected === "left" ?
         <div>
           <div style={{height:"100px"}}>
-            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 isSelected shadow-5"><h1 className="tc dashboard-favorites">My Favorites</h1></div>
-            <div onClick={() => setSelected("right")} className="col-xs-6 col-sm-6 col-md-6 col-lg-6 isNotSelected"><h1 className="tc dashboard-favorites">My Posts</h1></div>
+            <div><h1 className="tc dashboard-favorites">My Favorites</h1></div>
           </div>
 
           <div style={{width:"97%",margin:"auto", marginTop:"4%"}}>
               {recipes.length === 0 ? <h1 className="tc" style={{padding:"4%",paddingTop:"3%",color:"#202020"}}>You have no Favorite Recipes yet!</h1> : <Cards recipes={recipes}/>}
           </div>
-        </div>:
-
-        <div>
-          <div style={{height:"100px"}}>
-            <div onClick={() => setSelected("left")} className="col-xs-6 col-sm-6 col-md-6 col-lg-6 isNotSelected"><h1 className="tc dashboard-favorites">My Favorites</h1></div>
-            <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 isSelected shadow-5"><h1 className="tc dashboard-favorites">My Posts</h1></div>
-          </div>
-
-
-          <div style={{width:"90%", alignContent:"center", margin:"auto", marginTop:"4%"}}>
-              {posts.length === 0 ? <h1 className="tc" style={{padding:"4%",paddingTop:"3%",color:"#202020"}}>You have no Posts yet!</h1> : <Posts posts={posts} hide="true"/>}
-          </div>
-        </div>}
+        </div>
 
       </div>
   );
