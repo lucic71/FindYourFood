@@ -1,3 +1,4 @@
-delete feed
-delete dashboard.my_posts
-wait for ankit to answer with python version
+delete feed -  done
+delete dashboard.my_posts - done
+wait for ankit to answer with python version - they were using 3.5 but is irrelevant
+	because i don't want to run the backend nomore
